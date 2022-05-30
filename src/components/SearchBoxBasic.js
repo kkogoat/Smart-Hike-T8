@@ -16,6 +16,7 @@ const SearchBoxBasic = (props) => {
     useEffect(() => {
         if (debouncedSearchTerm) {
             if (searchTerm.length !== 0) {
+                // execute search if user stopped typing and the string is not empty
                 refine(searchTerm)
             }
         } else {
@@ -23,6 +24,7 @@ const SearchBoxBasic = (props) => {
         }
     }, [debouncedSearchTerm])
     useEffect(() => {
+        // set initial search term if provided
         if (props.initText !== "") {
             updateText(props.initText)
             setSearchTerm(props.initText)
@@ -30,6 +32,7 @@ const SearchBoxBasic = (props) => {
     }, [props])
 
     const handleChange = (e) => {
+        // linking input text with search function
         updateText(e.target.value)
         setSearchTerm(e.target.value)
     }

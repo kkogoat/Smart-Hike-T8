@@ -19,9 +19,9 @@ const City = () => {
                 setFavorites(fdoc.data().favorites);
             }
         }
-
         getFavorites();
     }, [user])
+
     // ADD FAVORITE TRAIL
     const addUserFavorites = async (trailID) => {
         const userDocRef = doc(db, "user-favorites", user.uid);
@@ -29,8 +29,6 @@ const City = () => {
         await updateDoc(userDocRef, {
             favorites: arrayUnion(trailID)
         });
-        console.log(favorites);
-        // favorites.includes(trailID) === -1 ? setFavorites(prevArray => [...prevArray, trailID]) : console.log("Already Exists");
     }
 
     // REMOVE FAVORITE TRAIL
@@ -40,16 +38,17 @@ const City = () => {
             favorites: arrayRemove(trailID)
         });
     }
+
     const changeFavorite = async (trailID) => {
         const element = document.getElementById(trailID + "-city-heart")
         const color = element.getAttribute('fill')
         if (color === "red") {
-            console.log("remove favorite")
+            // console.log("remove favorite")
             removeFavorite(trailID)
             element.setAttribute("fill", "grey")
             element.style.fill = "grey"
         } else if (color === "grey") {
-            console.log("add favorite")
+            // console.log("add favorite")
             addUserFavorites(trailID)
             element.setAttribute("fill", "red")
             element.style.fill = "red"

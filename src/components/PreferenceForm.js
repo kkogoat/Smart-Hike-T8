@@ -24,10 +24,11 @@ const PreferenceForm = () => {
                 setFavorites(fdoc.data().favorites);
             }
         }
-
         getFavorites();
     }, [user])
+
     useEffect(() => {
+        // Handle search from homepage
         if (history.state && historyFlag !== 'done') {
             updateInitVal(
                 Object.values(history.state.data).find(v => v.length > 0)
@@ -38,12 +39,12 @@ const PreferenceForm = () => {
 
     const conditionalQuery = {
         search(query) {
-            console.debug(query)
+            // Prevent requesting a search when the string is empty
             if (
                 query.every(({ params }) => !params.query) ||
                 query.every(({ params }) => params.query === ' ')
             ) {
-                console.log("empty query")
+                // console.log("empty query")
                 return Promise.resolve({
                     results: query.map(() => ({
                         hits: [],
@@ -62,7 +63,6 @@ const PreferenceForm = () => {
         }
     }
 
-
     const addUserFavorites = async (trailID) => {
         if (user) {
             const userDocRef = doc(db, "user-favorites", user.uid);
@@ -71,13 +71,11 @@ const PreferenceForm = () => {
                 favorites: arrayUnion(trailID)
             });
             // setFavorites([...favorites, trailID]);
+            // directly update favorites to avoid re-rendering
             favorites.push(trailID)
-            console.log(favorites);
         } else {
             history("/login");
         }
-        // favorites.includes(trailID) === -1 ? setFavorites(prevArray => [...prevArray, trailID]) : console.log("Already Exists");
-
     }
 
     const removeFavorite = async (trailID) => {
@@ -92,21 +90,24 @@ const PreferenceForm = () => {
     }
 
     const changeFavorite = async (trailID) => {
+        // Get the favorite status of the element
         const element = document.getElementById(trailID + "-heart")
         const color = element.getAttribute('fill')
         if (color === "red") {
-            console.log("remove favorite")
+            // console.log("remove favorite")
             removeFavorite(trailID)
             element.setAttribute("fill", "grey")
             element.style.fill = "grey"
         } else if (color === "grey") {
-            console.log("add favorite")
+            // console.log("add favorite")
             addUserFavorites(trailID)
             element.setAttribute("fill", "red")
             element.style.fill = "red"
         }
     }
+
     function Handle({ hit }) {
+        // Return the corresponding trailcard for each hit in the search results
         return (
             <div>
                 <TrailCard name={hit.name} img={hit.thumbURL} />
