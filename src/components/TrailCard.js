@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, Modal } from "react-bootstrap";
 import { TrailInfo } from './TrailInfo';
+import sunriseIcon from '../assets/sunrise.png';
+import sunsetIcon from '../assets/sunset.png';
 import '../css/TrailCard.scss';
 import '../css/Modal.scss';
 
@@ -86,12 +88,16 @@ const TrailCard = (props) => {
                         {weather.main.temp_max + "° / " + weather.main.temp_min + "°F"}
                     </h4>
                 </div>
-                <div>
-                    {/* <FontAwesomeIcon icon="sunrise" /> */}
-                    <i className="fa-solid fa-sunrise"></i>
+                <div id="daytime">
+                    <div id="sunrise-container">
+                        <img src={sunriseIcon} alt="sunrise" className="sunrise-icon" />
+                        {new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                    </div>
+                    <div id="sunset-container">
+                        <img src={sunsetIcon} alt="sunset" className="sunset-icon" />
+                        {new Date(weather.sys.sunset * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                    </div>
                 </div>
-                <p>Sunrise: {new Date(weather.sys.sunrise * 1000).toLocaleTimeString('en-US')}</p>
-                <p>Sunset: {new Date(weather.sys.sunset * 1000).toLocaleTimeString('en-US')}</p>
 
             </>
         )

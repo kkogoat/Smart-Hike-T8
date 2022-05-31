@@ -17,6 +17,7 @@
     width: 100px;
     height: 100px;
     overflow: visible;
+
     &>h4 {
         font-size: small;
     }
@@ -49,4 +50,36 @@
 
 .rate>label.checked {
     color: #ffc700;
+}
+
+.h4 {
+    font-size: x-large;
+}
+
+.sunrise-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.sunset-icon {
+    height: 60px;
+    width: 60px;
+}
+
+#daytime {
+    display: flex;
+    gap: 45px;
+    justify-content: center;
+    margin: 0 50px 0 50px;
+    width: 100%;
+}
+
+#sunrise-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#sunset-container {
+    display: flex;
+    flex-direction: column;
 }

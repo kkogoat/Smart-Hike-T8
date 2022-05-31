@@ -43,6 +43,7 @@ const SearchBoxBasic = (props) => {
                 type="search"
                 value={text}
                 onChange={handleChange}
+                placeholder="Search by city, zip code, or trail name"
             />
         </form>
     )
